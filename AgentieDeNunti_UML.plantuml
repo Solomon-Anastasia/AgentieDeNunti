@@ -1,0 +1,213 @@
+@startuml
+
+title __PRACTICA2021's Class Diagram__\n
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.Adress {
+          - CITY : String
+          - COUNTRY : String
+          - STREET : String
+          + Adress()
+          + getCITY()
+          + getCOUNTRY()
+          + getSTREET()
+          + toString()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.Date {
+          - DAY : String
+          - MONTH : String
+          - YEAR : String
+          + Date()
+          + getDAY()
+          + getMONTH()
+          + getYEAR()
+          + toString()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.Event {
+          - TOTAL_PRICE : double
+          - grooms : List<Person>
+          - guests : List<Person>
+          - numberOfGuests : int
+          + Event()
+          + getDateEvent()
+          + getGrooms()
+          + getGuests()
+          + getHallEvent()
+          + getNumberOfGuests()
+          + getTOTAL_PRICE()
+          + getTypeEvent()
+          + toString()
+          + truncation()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.Hall {
+          - idHall : int
+          - naming : String
+          - numGuests : int
+          - pricePerPerson : int
+          + Hall()
+          + Hall()
+          + getAdress()
+          + getIdHall()
+          + getNaming()
+          + getNumGuests()
+          + getPricePerPerson()
+          + toString()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.InsertException {
+          {static} + setDateException()
+          {static} + setNumberException()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      class AgentieDeNunti.Classes.Person {
+          - NAME : String
+          - SURNAME : String
+          + Person()
+          + getNAME()
+          + getSURNAME()
+          + toString()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Classes {
+      enum TypeEvent {
+        SPLICE
+        WEDDING
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace Menu {
+      class AgentieDeNunti.Menu.Menu {
+          {static} + cls()
+          {static} + getMenu()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      class AgentieDeNunti.SQLClasses.ConnectToDatabase {
+          - connection : Connection
+          + ConnectToDatabase()
+          + getConnection()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      namespace Event {
+        class AgentieDeNunti.SQLClasses.Event.EventCreateTable {
+            - STATEMENT : Statement
+            + EventCreateTable()
+            + getSTATEMENT()
+        }
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      namespace Event {
+        class AgentieDeNunti.SQLClasses.Event.EventReadFromCSV {
+            + EventReadFromCSV()
+        }
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      namespace Halls {
+        class AgentieDeNunti.SQLClasses.Halls.HallCreateTable {
+            - STATEMENT : Statement
+            + HallCreateTable()
+            + getSTATEMENT()
+        }
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      namespace Halls {
+        class AgentieDeNunti.SQLClasses.Halls.HallReadFromCSV {
+            + HallReadFromCSV()
+        }
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    namespace SQLClasses {
+      class AgentieDeNunti.SQLClasses.SQLDataBase {
+          + SQLDataBase()
+      }
+    }
+  }
+
+  namespace AgentieDeNunti {
+    class AgentieDeNunti.Start {
+        - events : ArrayList<Event>
+        - halls : ArrayList<Hall>
+        - hallsAux : ArrayList<Hall>
+        + Start()
+        + createEvent()
+        + getHallsFromCSV()
+        + insertEventsInCSV()
+    }
+  }
+
+  namespace AgentieDeNunti {
+    class AgentieDeNunti.Test {
+        {static} + main()
+    }
+  }
+
+  AgentieDeNunti.Classes -[hidden]-> AgentieDeNunti.SQLClasses
+  AgentieDeNunti.Classes.Event o-left- AgentieDeNunti.Classes.Date : dateEvent
+  AgentieDeNunti.Classes.Event o-right- AgentieDeNunti.Classes.Hall : hallEvent
+  AgentieDeNunti.Classes.Event o-up- AgentieDeNunti.Classes.TypeEvent : typeEvent
+  AgentieDeNunti.Classes.Hall o-up- AgentieDeNunti.Classes.Adress : adress
+  AgentieDeNunti.SQLClasses.Event.EventCreateTable -left-|> AgentieDeNunti.SQLClasses.ConnectToDatabase
+  AgentieDeNunti.SQLClasses.Event.EventReadFromCSV -up-|> AgentieDeNunti.SQLClasses.Event.EventCreateTable
+  AgentieDeNunti.SQLClasses.Halls.HallCreateTable -up-|> AgentieDeNunti.SQLClasses.ConnectToDatabase
+  AgentieDeNunti.SQLClasses.Halls.HallReadFromCSV -left-|> AgentieDeNunti.SQLClasses.Halls.HallCreateTable
+  AgentieDeNunti.Start -down-|> AgentieDeNunti.SQLClasses.ConnectToDatabase
+
+right footer
+
+UML Diagram made for CEITI for practica year 2021
+by Rosca Daniel and Solomon Anastasia from Group P-1923
+Professor: Luncasu Galina
+endfooter
+
+@enduml
